@@ -3,6 +3,7 @@ const app = express();
 require("dotenv").config();
 const expressLayouts = require("express-ejs-layouts");
 const registerRouter = require("./routes/register");
+const authRouter = require("./routes/auth");
 require("./db/database");
 const port = process.env.PORT || 3000;
 
@@ -12,6 +13,7 @@ app.use(expressLayouts);
 app.set("layout", "layouts/main");
 app.use(express.urlencoded({ extended: true }));
 app.use(registerRouter);
+app.use(authRouter);
 
 app.get("/", (req, res) => {
   const locals = {

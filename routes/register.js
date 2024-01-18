@@ -11,8 +11,7 @@ router.post("/register", async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
-    // Handle the response after successful registration
-    res.status(201).send({ user });
+    res.status(201).redirect("/login");
   } catch (error) {
     res.status(400).send(error);
   }
