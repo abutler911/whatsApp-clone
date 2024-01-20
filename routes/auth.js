@@ -12,16 +12,27 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(400).send("Unable to login");
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
+
     if (!isMatch) {
       return res.status(400).send("Unable to login");
     }
 
-    res.send("Login successful");
+    // User is successfully authenticated at this point
+    // Store user information in session
+    req.session.user = {
+      id: user._id,
+      username: user.username,
+      email: user.email,
+    };
+    console.log(req.session.user);
+    // Redirect to chat page
+    res.redirect("/chat");
   } catch (error) {
     res.status(500).send(error);
   }

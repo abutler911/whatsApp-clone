@@ -4,6 +4,9 @@ require("dotenv").config();
 const expressLayouts = require("express-ejs-layouts");
 const registerRouter = require("./routes/register");
 const authRouter = require("./routes/auth");
+const chatRouter = require("./routes/chat");
+const logoutRouter = require("./routes/logout");
+const session = require("express-session");
 require("./db/database");
 const port = process.env.PORT || 3000;
 
@@ -14,7 +17,16 @@ app.set("layout", "layouts/main");
 app.use(express.urlencoded({ extended: true }));
 app.use(registerRouter);
 app.use(authRouter);
+app.use(chatRouter);
+app.use(logoutRouter);
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 app.get("/", (req, res) => {
   const locals = {
     title: "WhatsApp Clone!",
