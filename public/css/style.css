@@ -1,13 +1,13 @@
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #525252;
-  background-color: #ece5dd; /* WhatsApp background color */
+  background-color: #ece5dd;
   text-align: center;
   padding: 40px 20px;
 }
 
 h2 {
-  color: #128c7e; /* WhatsApp green */
+  color: #128c7e;
   font-size: 24px;
   margin-bottom: 30px;
 }
@@ -17,7 +17,7 @@ h2 {
 }
 
 button {
-  background-color: #075e54; /* WhatsApp dark green */
+  background-color: #075e54;
   color: white;
   border: none;
   border-radius: 4px;
@@ -29,14 +29,23 @@ button {
 }
 
 button:hover {
-  background-color: #128c7e; /* Slightly lighter green */
+  background-color: #128c7e;
 }
 
+#send-message {
+  background-color: #075e54;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 30px;
+  margin: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 a {
   text-decoration: none;
 }
-
-/* Add to your main.css or a similar stylesheet */
 
 .chat-container {
   max-width: 800px;
@@ -77,38 +86,54 @@ a {
   background-color: #0056b3;
 }
 
-/* Basic styles */
 .chat-messages {
-  padding: 10px;
-  height: 300px; /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
+  height: 400px;
+  background-color: #000000;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #8b8b8b;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .message {
   max-width: 60%;
   padding: 10px;
-  margin: 5px;
-  border-radius: 20px;
-  word-wrap: break-word;
+  margin: 5px 0;
+  border-radius: 7.5px;
+  font-size: 14px;
+  line-height: 20px;
+  word-break: break-word;
 }
 
-/* Style for user messages */
 .user-message {
-  background-color: #dcf8c6; /* Light green background */
+  background-color: #dcf8c6;
   align-self: flex-start;
-  margin-left: 10px;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #000;
+  text-align: left;
+  padding: 10px;
 }
 
-/* Style for received messages */
 .received-message {
-  background-color: #ececec; /* Light grey background */
+  background-color: #68d800;
   align-self: flex-end;
-  margin-right: 10px;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: #000;
+  text-align: left;
+  padding: 10px;
 }
 
-/* Style for notifications (e.g., user joined, left) */
 .notification {
-  text-align: center;
+  background-color: transparent;
+  color: #a6a6a6;
   font-style: italic;
-  margin-bottom: 10px;
+  font-size: 12px;
+  text-align: left;
+  width: 100%;
 }
