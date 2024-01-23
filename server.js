@@ -53,7 +53,7 @@ io.on("connection", (socket) => {
   socket.broadcast.emit("message", `${username} has joined the chat...`);
 
   socket.on("sendMessage", (data) => {
-    io.emit("message", `${data.username}: ${data.message}`);
+    io.emit("receiveMessage", data);
   });
 
   socket.on("disconnect", () => {

@@ -21,10 +21,19 @@
   });
 
   // Function to append messages to the chat window
-  function appendMessage(message) {
+  function appendMessage(type, message) {
     const chatMessages = document.getElementById("chat-messages");
     const messageDiv = document.createElement("div");
     messageDiv.textContent = message;
+    messageDiv.classList.add("message");
+    if (type === "user") {
+      messageDiv.classList.add("user-message");
+    } else if (type === "received") {
+      messageDiv.classList.add("received-message");
+    } else {
+      messageDiv.classList.add("notification");
+    }
+
     chatMessages.appendChild(messageDiv);
 
     // Auto-scroll to the latest message
@@ -33,7 +42,7 @@
 
   // Listening for 'message' event from server
   socket.on("message", (msg) => {
-    appendMessage(msg);
+    appendMessage("notification", msg);
   });
 
   // Send message to server
@@ -42,13 +51,13 @@
     const message = messageBox.value;
     if (message) {
       socket.emit("sendMessage", { username, message });
-
+      // appendMessage("user", `You: ${message}`);
       messageBox.value = "";
     }
   });
 
   // Receiving broadcasted messages
   socket.on("receiveMessage", (data) => {
-    appendMessage(`${data.username}: ${data.message}`);
+    appendMessage("received", `${data.username}: ${data.message}`);
   });
 </script>
