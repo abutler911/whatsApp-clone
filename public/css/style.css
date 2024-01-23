@@ -95,7 +95,7 @@ a {
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid #8b8b8b;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -117,6 +117,19 @@ a {
   color: #000;
   text-align: left;
   padding: 10px;
+  position: relative; /* Needed for the arrow */
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.user-message::after {
+  content: "";
+  position: absolute;
+  border: 10px solid transparent;
+  border-right-color: #dcf8c6; /* Same as background-color */
+  left: -20px; /* Adjust as needed */
+  top: 10px;
 }
 
 .received-message {
@@ -127,6 +140,19 @@ a {
   color: #000;
   text-align: left;
   padding: 10px;
+  position: relative; /* Needed for the arrow */
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-left-radius: 8px;
+}
+
+.received-message::before {
+  content: "";
+  position: absolute;
+  border: 10px solid transparent;
+  border-left-color: #68d800; /* Same as background-color */
+  right: -20px; /* Adjust as needed */
+  top: 10px;
 }
 
 .notification {
