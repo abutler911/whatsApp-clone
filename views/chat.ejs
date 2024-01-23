@@ -1,3 +1,54 @@
-<!-- views/chat.ejs -->
-<h1>Welcome to the Chat Room</h1>
-<p>Chat functionality goes here...</p>
+<div class="chat-container">
+  <h1>
+    Welcome to the Chat Room<%= user && user.username ? ', ' + user.username :
+    'anonymous' %>
+  </h1>
+  <div id="chat-messages" class="chat-messages"></div>
+
+  <div class="message-input">
+    <input type="text" id="message-box" placeholder="Type a message..." />
+    <button id="send-message">Send</button>
+  </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const username = "<%= user && user.username ? user.username : 'anonymous' %>";
+
+  const socket = io({
+    query: {
+      username: username,
+    },
+  });
+
+  // Function to append messages to the chat window
+  function appendMessage(message) {
+    const chatMessages = document.getElementById("chat-messages");
+    const messageDiv = document.createElement("div");
+    messageDiv.textContent = message;
+    chatMessages.appendChild(messageDiv);
+
+    // Auto-scroll to the latest message
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  // Listening for 'message' event from server
+  socket.on("message", (msg) => {
+    appendMessage(msg);
+  });
+
+  // Send message to server
+  document.getElementById("send-message").addEventListener("click", () => {
+    const messageBox = document.getElementById("message-box");
+    const message = messageBox.value;
+    if (message) {
+      socket.emit("sendMessage", { username, message });
+
+      messageBox.value = "";
+    }
+  });
+
+  // Receiving broadcasted messages
+  socket.on("receiveMessage", (data) => {
+    appendMessage(`${data.username}: ${data.message}`);
+  });
+</script>
