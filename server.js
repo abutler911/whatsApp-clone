@@ -64,8 +64,8 @@ io.on("connection", (socket) => {
 // Landing page route
 app.get("/", (req, res) => {
   const locals = {
-    title: "WhatsApp Clone!",
-    description: "Welcome to my WhatsApp Clone!",
+    title: "ChatSphere",
+    description: "Welcome to ChatSphere!",
     header: "Page Header",
   };
   res.render("landing", locals);
