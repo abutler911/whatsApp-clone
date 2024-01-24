@@ -59,6 +59,10 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     io.emit("message", `${username} has left the chat...`);
   });
+
+  socket.on("typing", (data) => {
+    socket.broadcast.emit("userTyping", data);
+  });
 });
 
 // Landing page route

@@ -170,7 +170,7 @@ a {
   right: 0;
   top: -10px;
   border: 10px solid transparent;
-  border-bottom-color: #68d800;
+  border-bottom-color: #128c7e;
   transform: translateX(50%);
 }
 
@@ -181,4 +181,13 @@ a {
   font-size: 12px;
   text-align: left;
   width: 100%;
+}
+
+.typing-status {
+  color: gray;
+  font-style: italic;
+  margin: 5px;
+  min-height: 20px;
+  text-align: start;
+  font-size: 13px;
 }

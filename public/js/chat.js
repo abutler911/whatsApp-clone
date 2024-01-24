@@ -45,3 +45,19 @@ socket.on("receiveMessage", (data) => {
     appendMessage("received", `${data.username}: ${data.message}`);
   }
 });
+const messageBox = document.getElementById("message-box");
+
+messageBox.addEventListener("input", () => {
+  if (messageBox.value.length > 0) {
+    socket.emit("typing", { username: username });
+  }
+});
+
+socket.on("userTyping", (data) => {
+  const typingStatus = document.getElementById("typing-status");
+  typingStatus.innerText = `${data.username} is typing...`;
+  clearTimeout(typingStatus.timeout);
+  typingStatus.timeout = setTimeout(() => {
+    typingStatus.innerText = "";
+  }, 1000);
+});
