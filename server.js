@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 
 // Create HTTP server and attach Socket.IO
 const server = http.createServer(app);
-const io = socketIo(server); // Attach Socket.IO to the server
+const io = socketIo(server);
 
 // Routers
 const registerRouter = require("./routes/register");
@@ -23,11 +23,11 @@ const chatRouter = require("./routes/chat");
 const logoutRouter = require("./routes/logout");
 
 // Set up middlewares
-app.use(express.static("public")); // Serve static files
-app.set("view engine", "ejs"); // Set view engine to EJS
-app.use(expressLayouts); // Use express-ejs-layouts
-app.set("layout", "layouts/main"); // Set the default layout
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("layout", "layouts/main");
+app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 app.use(
@@ -59,10 +59,6 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     io.emit("message", `${username} has left the chat...`);
   });
-
-  // socket.on("chatMessage", (msg) => {
-  //   io.emit("message", `${username}: ${msg}`);
-  // });
 });
 
 // Landing page route
