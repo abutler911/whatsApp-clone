@@ -6,7 +6,9 @@ const http = require("http");
 const socketIo = require("socket.io");
 
 require("dotenv").config();
-require("./db/database"); // Database connection
+require("./db/database");
+const Message = require("./models/Message");
+const Room = require("./models/Room");
 
 // Initialize Express app
 const app = express();
@@ -21,6 +23,7 @@ const registerRouter = require("./routes/register");
 const authRouter = require("./routes/auth");
 const chatRouter = require("./routes/chat");
 const logoutRouter = require("./routes/logout");
+const roomsRouter = require("./routes/rooms");
 
 // Set up middlewares
 app.use(express.static("public"));
@@ -43,17 +46,36 @@ app.use(registerRouter);
 app.use(authRouter);
 app.use(chatRouter);
 app.use(logoutRouter);
+app.use("/", roomsRouter);
 
-// Socket.IO connection handling
 io.on("connection", (socket) => {
-  const username = socket.handshake.query.username || "Anonymous";
+  console.log("New websocket connection");
 
-  console.log("New websocket connection from: " + username);
+  // Joining a room
+  socket.on("joinRoom", async ({ roomId, userId }) => {
+    socket.join(roomId);
+    // Fetch room details if needed
+    // ...
 
-  socket.broadcast.emit("message", `${username} has joined the chat...`);
+    socket.broadcast
+      .to(roomId)
+      .emit("message", "A user has joined the chat...");
+  });
 
-  socket.on("sendMessage", (data) => {
-    io.emit("receiveMessage", data);
+  // Handling messages in a room
+  socket.on("sendMessage", async (data) => {
+    console.log(`Received message data: `, data);
+    try {
+      const message = new Message({
+        content: data.message,
+        sender: data.userId,
+        chat: data.chatId,
+      });
+      await message.save();
+      io.to(data.chatId).emit("receiveMessage", data); // Emit to specific room
+    } catch (error) {
+      console.error("Error saving message: ", error);
+    }
   });
 
   socket.on("disconnect", () => {

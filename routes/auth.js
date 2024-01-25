@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
     };
     console.log(req.session.user);
     // Redirect to chat page
-    res.redirect("/chat");
+    res.redirect("/roomsList");
   } catch (error) {
     res.status(500).send(error);
   }

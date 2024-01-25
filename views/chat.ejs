@@ -3,7 +3,16 @@
     Welcome to ChatSphere<%= user && user.username ? ', ' + user.username :
     'anonymous' %>
   </h1>
-  <div id="chat-messages" class="chat-messages"></div>
+  <div id="chat-messages" class="chat-messages">
+    <% if (messages && messages.length) { %> <%
+    messages.forEach(function(message) { %>
+    <div
+      class="<%= message.sender._id == user._id ? 'user-message' : 'received-message' %>"
+    >
+      <%= message.sender.username %>: <%= message.content %>
+    </div>
+    <% }); %> <% } %>
+  </div>
   <div id="typing-status" class="typing-status"></div>
   <div class="message-input">
     <input type="text" id="message-box" placeholder="message..." />
@@ -12,4 +21,8 @@
 </div>
 <script>
   const username = "<%= user && user.username ? user.username : 'anonymous' %>";
+  const userId = "<%= userId %>";
+  const chatId = "<%= currentChatId %>";
+
+  console.log(`UserId: ${userId}, ChatId: ${chatId}`);
 </script>

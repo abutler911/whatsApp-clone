@@ -5,11 +5,34 @@ body {
   text-align: center;
   padding: 40px 20px;
 }
-
+h1 {
+  color: #333;
+}
 h2 {
   color: #128c7e;
   font-size: 24px;
   margin-bottom: 30px;
+}
+
+.container {
+  max-width: 400px; /* Adjust as needed for mobile */
+  margin: auto;
+  padding: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  background-color: #fff;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sm {
+  margin-left: 5px;
 }
 
 .buttons {

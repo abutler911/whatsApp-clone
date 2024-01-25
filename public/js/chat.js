@@ -33,14 +33,13 @@ document.getElementById("send-message").addEventListener("click", () => {
   const messageBox = document.getElementById("message-box");
   const message = messageBox.value;
   if (message) {
-    socket.emit("sendMessage", { username, message });
+    socket.emit("sendMessage", { username, message, userId, chatId });
     appendMessage("user", `You: ${message}`);
     messageBox.value = "";
   }
 });
 
 socket.on("receiveMessage", (data) => {
-  // Check if the received message is from the current user or others
   if (data.username !== username) {
     appendMessage("received", `${data.username}: ${data.message}`);
   }
